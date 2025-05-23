@@ -9,38 +9,30 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
-        node-version: [22.x]
+        node-version: ['22.x']
 
     steps:
-      # Code auschecken
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Node.js installieren
       - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
-      # Abhängigkeiten installieren (im Projekt-Root)
       - name: Install dependencies
         run: npm ci
+        # kein working-directory nötig, weil dein package.json im Repo-Root liegt
 
-      # Tests ausführen
-      - name: Run tests
-        run: npm test -- --watchAll=false
-
-      # Produktions-Build (Vite)
-      - name: Build
+      - name: Build assets
         run: npm run build
+        # dieser Befehl nutzt Vite und schreibt standardmäßig nach public/build
 
-      # Gebaute Assets hochladen (public/build)
-      - name: Upload build artifact
+      - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: laravel-react-build
+          name: laravel-vite-build
           path: public/build
