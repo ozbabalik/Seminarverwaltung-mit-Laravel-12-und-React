@@ -1,5 +1,4 @@
-# .github/workflows/react-ci.yml
-name: React CI
+name: Build Frontend
 
 on:
   push:
@@ -10,7 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [22.x]
