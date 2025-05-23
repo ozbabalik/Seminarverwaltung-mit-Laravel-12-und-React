@@ -1,0 +1,14 @@
+name: 🔧 Chore / Task
+description: Alltägliche Aufgaben (Dokumentation, Refactoring, Tests)
+title: '[Chore] '
+labels: ['chore']
+body:
+  - type: input
+    id: summary
+    attributes:
+      label: Aufgabe
+    required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Weitere Details

@@ -1,0 +1,17 @@
+name: 🚀 Feature Request
+description: Vorschlag für neue Funktionalitäten
+title: '[Feature] '
+labels: ['enhancement']
+body:
+  - type: input
+    id: summary
+    attributes:
+      label: Kurze Zusammenfassung
+      placeholder: "Als [Rolle] will ich ..., damit ..."
+    required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Detaillierte Beschreibung
+      placeholder: "- Use Case\n- Akzeptanzkriterien"
+    required: true
