@@ -2,26 +2,23 @@ name: Deploy Frontend
 
 on:
   workflow_run:
-    # Hier den Namen deines Build-Workflows eintragen
     workflows: ["React CI"]
-    types:
-      - completed
+    types: [completed]
 
 jobs:
-  download-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Download frontend-dist artifact
+      - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          name: frontend-dist   # MUSS übereinstimmen mit dem Upload
-          path: frontend/dist
+          name: laravel-react-build
+          path: public/build
 
-      # Hier deine Deploy-Schritte ergänzen, z.B.
-      # - Copy files to webroot
-      # - rsync / scp
-      # - GitHub Pages / Netlify / Surge
+      # Hier deine Deploy-Schritte, z.B.:
+      # - Kopieren nach /var/www/html
+      # - rsync/scp
+      # - GitHub Pages / Netlify / Surge usw.

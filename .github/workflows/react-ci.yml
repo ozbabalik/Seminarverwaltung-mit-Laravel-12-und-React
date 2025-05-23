@@ -1,4 +1,3 @@
-# .github/workflows/react-ci.yml
 name: React CI
 
 on:
@@ -16,29 +15,32 @@ jobs:
         node-version: [22.x]
 
     steps:
+      # Code auschecken
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # Node.js installieren
       - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
+      # Abhängigkeiten installieren (im Projekt-Root)
       - name: Install dependencies
-        working-directory: frontend
         run: npm ci
 
+      # Tests ausführen
       - name: Run tests
-        working-directory: frontend
         run: npm test -- --watchAll=false
 
+      # Produktions-Build (Vite)
       - name: Build
-        working-directory: frontend
         run: npm run build
 
-      - name: Upload frontend-dist artifact
+      # Gebaute Assets hochladen (public/build)
+      - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: frontend-dist
-          path: frontend/dist
+          name: laravel-react-build
+          path: public/build
